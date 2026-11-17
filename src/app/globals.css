@@ -1,0 +1,353 @@
+@import "tailwindcss";
+
+/* ---------- Colour tokens (light theme only) ---------- */
+:root {
+  --bg: #fffdf5; /* warm white */
+  --surface: #ffffff;
+  --surface-2: #f6f3e8;
+  --line: #e7e2d2;
+  --ink: #142b55; /* navy */
+  --muted: #4a5a7a;
+  --sky: #bdebfa;
+  --sky-soft: #e6f7fd;
+  --orange: #f59a65;
+  --orange-deep: #c4561f; /* text-safe orange */
+  --green: #b8ddae;
+  --green-deep: #3f7a3a;
+  --yellow: #ffe69a;
+  --pink: #f9c6d4;
+  --lilac: #d9d2fb;
+  --danger: #b4233f;
+  color-scheme: light;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--line);
+  --color-ink: var(--ink);
+  --color-navy: var(--ink);
+  --color-muted: var(--muted);
+  --color-sky: var(--sky);
+  --color-sky-soft: var(--sky-soft);
+  --color-orange: var(--orange);
+  --color-orange-deep: var(--orange-deep);
+  --color-green: var(--green);
+  --color-green-deep: var(--green-deep);
+  --color-yellow: var(--yellow);
+  --color-pink: var(--pink);
+  --color-lilac: var(--lilac);
+  --color-danger: var(--danger);
+  --font-display: "Sora Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-sans:
+    "Plus Jakarta Sans Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, monospace;
+}
+
+/* ---------- Base ---------- */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 6.5rem;
+}
+
+html,
+body {
+  overflow-x: clip;
+}
+
+body {
+  background: linear-gradient(180deg, #d5f2fc 0, var(--bg) 34rem) no-repeat
+    var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  letter-spacing: -0.025em;
+  line-height: 1.12;
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+:focus-visible {
+  outline: 3px solid #1f6fd1;
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+
+::selection {
+  background: var(--yellow);
+  color: var(--ink);
+}
+
+@layer components {
+  /* ---------- Layout helpers ---------- */
+  .wrap {
+    width: 100%;
+    max-width: 76rem;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+
+  @media (min-width: 640px) {
+    .wrap {
+      padding-inline: 2rem;
+    }
+  }
+
+  .band {
+    padding-block: 4.5rem;
+  }
+
+  @media (min-width: 1024px) {
+    .band {
+      padding-block: 6.5rem;
+    }
+  }
+
+  .h2 {
+    font-size: clamp(1.875rem, 1.3rem + 2.3vw, 3rem);
+    font-weight: 700;
+  }
+
+  .lede {
+    color: var(--muted);
+    font-size: 1.125rem;
+    max-width: 40rem;
+  }
+
+  /* Yellow ribbon used as a section eyebrow */
+  .ribbon {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 2px solid var(--ink);
+    background: var(--yellow);
+    color: var(--ink);
+    border-radius: 999px;
+    padding: 0.3rem 1rem;
+    font-family: var(--font-display);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    box-shadow: 0 3px 0 var(--ink);
+    transform: rotate(-1.5deg);
+  }
+
+  /* Hand-drawn style underline under a key word */
+  .scribble {
+    background-image: linear-gradient(var(--orange), var(--orange));
+    background-repeat: no-repeat;
+    background-size: 100% 0.28em;
+    background-position: 0 92%;
+    border-radius: 4px;
+  }
+
+  /* ---------- Cards ---------- */
+  .card {
+    background: var(--surface);
+    border: 2px solid var(--ink);
+    border-radius: 1.5rem;
+    box-shadow: 0 5px 0 var(--ink);
+  }
+
+  .card-soft {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 1.5rem;
+    box-shadow: 0 18px 40px -28px rgb(20 43 85 / 0.45);
+  }
+
+  .lift {
+    transition:
+      transform 0.25s ease,
+      box-shadow 0.25s ease;
+  }
+
+  .lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 9px 0 var(--ink);
+  }
+
+  /* ---------- Buttons ---------- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 3.25rem;
+    padding-inline: 1.6rem;
+    border-radius: 999px;
+    border: 2px solid var(--ink);
+    font-weight: 700;
+    font-size: 1rem;
+    white-space: nowrap;
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease,
+      background-color 0.2s ease;
+  }
+
+  .btn:hover {
+    transform: translateY(-2px);
+  }
+
+  .btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 1px 0 var(--ink);
+  }
+
+  .btn-primary {
+    background: var(--orange);
+    color: var(--ink);
+    box-shadow: 0 4px 0 var(--ink);
+  }
+
+  .btn-primary:hover {
+    background: #f7a878;
+    box-shadow: 0 6px 0 var(--ink);
+  }
+
+  .btn-navy {
+    background: var(--ink);
+    color: #fff;
+    box-shadow: 0 4px 0 #0a1834;
+  }
+
+  .btn-navy:hover {
+    background: #1d3a70;
+  }
+
+  .btn-quiet {
+    background: var(--surface);
+    color: var(--ink);
+    box-shadow: 0 4px 0 var(--ink);
+  }
+
+  .btn-quiet:hover {
+    background: var(--sky-soft);
+    box-shadow: 0 6px 0 var(--ink);
+  }
+
+  @media (max-width: 639px) {
+    .btn-block-mobile {
+      width: 100%;
+    }
+  }
+
+  .btn-sm {
+    min-height: 2.75rem;
+    padding-inline: 1.15rem;
+    font-size: 0.9375rem;
+  }
+
+  /* ---------- Tech chip ---------- */
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    border: 1.5px solid var(--ink);
+    background: var(--surface);
+    border-radius: 999px;
+    padding: 0.15rem 0.7rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    line-height: 1.5;
+    color: var(--ink);
+  }
+}
+
+/* ---------- Illustration helpers ---------- */
+.sky-bg {
+  background: linear-gradient(180deg, #bdebfa 0%, #dcf4fc 55%, var(--bg) 100%);
+}
+
+/* Walking legs (student characters) */
+.leg {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+}
+
+.is-walking .leg-a {
+  animation: leg-swing 0.7s ease-in-out infinite alternate;
+}
+
+.is-walking .leg-b {
+  animation: leg-swing 0.7s ease-in-out infinite alternate-reverse;
+}
+
+.is-walking .walker-body {
+  animation: walk-bob 0.35s ease-in-out infinite alternate;
+}
+
+@keyframes leg-swing {
+  from {
+    transform: rotate(-16deg);
+  }
+  to {
+    transform: rotate(16deg);
+  }
+}
+
+@keyframes walk-bob {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-2px);
+  }
+}
+
+/* Parachute sway on hover */
+.chute {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  transition: transform 0.4s ease;
+}
+
+.group:hover .chute,
+.group:focus-visible .chute {
+  transform: rotate(-5deg);
+}
+
+/* Dashes that travel along a project flow connector on hover */
+@keyframes dash-flow {
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+
+.group:hover .flow-dash {
+  animation: dash-flow 0.8s linear infinite;
+}
+
+/* Track sleepers for the train scene */
+.rail-bed {
+  background:
+    linear-gradient(#5b6b86, #5b6b86) 0 3px / 100% 4px no-repeat,
+    linear-gradient(#5b6b86, #5b6b86) 0 11px / 100% 3px no-repeat,
+    repeating-linear-gradient(90deg, #9a7b5c 0 10px, transparent 10px 34px) 0
+      2px / 100% 14px no-repeat,
+    #c9c1b0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
